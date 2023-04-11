@@ -535,14 +535,14 @@ static void client_message (struct ev_tcp *io, unsigned int length,
 				0, seq);
 			client_ack (io, ack, "");
 		} else 
-			enqueue_formatted_event(header+AUDIT_RMW_HEADER_SIZE,
+			enqueue_formatted_event((char *)header+AUDIT_RMW_HEADER_SIZE,
 				client_ack, io, seq);
 		header[length] = ch;
 	} else {
 		header[length] = 0;
 		if (length > 1 && header[length-1] == '\n')
 			header[length-1] = 0;
-		enqueue_formatted_event (header, NULL, NULL, 0);
+		enqueue_formatted_event ((char *)header, NULL, NULL, 0);
 	}
 }
 
@@ -1006,7 +1006,7 @@ int dispatch_event_to_socket(const struct audit_reply *rep) {
 
   // audit_reply messages may contain newlines. Parse them out.
   // Candidate code for parse_removenewlines function.
-  char *tmpstr = rep->message;
+  char *tmpstr = (char *)(rep->message);
   while(( tmpstr = strchr(tmpstr, 0x0A)) != NULL) {
     if (tmpstr != &rep->message[rep->len-1])
       *tmpstr = ' ';
@@ -1015,7 +1015,7 @@ int dispatch_event_to_socket(const struct audit_reply *rep) {
   }
 
   // Get our parsed message
-  msgfromparser = interpret_reply(rep->message, rep->len, rep->type);
+  msgfromparser = (char *)interpret_reply((char *)(rep->message), rep->len, rep->type);
   len = strlen(msgfromparser); //asprintf created string so /0 is there.
 
   // For each client that's connected, send them the message.

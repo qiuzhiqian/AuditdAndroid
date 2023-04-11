@@ -6,7 +6,7 @@ include $(CLEAR_VARS)
 MY_ROOT_PATH := external/android_audit
 ETC_DIR := $(TARGET_OUT)/etc/audit
 
-LOCAL_MODULE := auditctl
+LOCAL_MODULE := auditctl_xml
 LOCAL_MODULE_TAGS := optional
 LOCAL_SRC_FILES:= lib/libaudit.c \
 			lib/message.c \
@@ -26,7 +26,8 @@ LOCAL_C_INCLUDES :=	$(MY_ROOT_PATH) \
 			$(MY_ROOT_PATH)/src
 
 LOCAL_SHARED_LIBRARIES := libc libcutils 
-
+LOCAL_CFLAGS += -Wno-unused-const-variable -Wno-unused-variable -Wno-unused-parameter -Wno-unused-function
+LOCAL_LDLIBS += -llog
 include $(BUILD_EXECUTABLE)
 
 
@@ -61,18 +62,19 @@ LOCAL_C_INCLUDES :=	$(MY_ROOT_PATH) \
 			$(MY_ROOT_PATH)/src
 
 LOCAL_SHARED_LIBRARIES := libc libcutils
-
+LOCAL_LDLIBS += -llog
+LOCAL_CFLAGS += -Wno-unused-const-variable -Wno-unused-variable -Wno-unused-parameter -Wno-unused-function
 include $(BUILD_EXECUTABLE)
 
 #spade-audit utility build
 include $(CLEAR_VARS)
-
 LOCAL_MODULE := spade-audit
 LOCAL_MODULE_TAGS := optional
 LOCAL_SRC_FILES:= src/spadeLinuxAudit.c
 LOCAL_CFLAGS :=  -fPIE -DPIE -g -D_GNU_SOURCE -fno-strict-aliasing 
-LOCAL_LDLIBS := -lm -lpthread -lc
-
+LOCAL_LDLIBS := -lm -lc -llog
+LIBS += -lpthread
+LOCAL_CFLAGS += -Wno-unused-const-variable -Wno-unused-variable -Wno-unused-parameter -Wno-unused-function
 include $(BUILD_EXECUTABLE)
 
 # Start copying configuration files

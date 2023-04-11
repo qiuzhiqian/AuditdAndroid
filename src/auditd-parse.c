@@ -114,7 +114,7 @@ char *parse_unescape(char *buf, int length)
 
   // Allocate copy
   copy = (char *) malloc(length+1); // +1 for /0
-  copy[length+1] = NULL;
+  copy[length+1] = '\0';
 
   // Copy over buffer
   memcpy(copy, buf, length);

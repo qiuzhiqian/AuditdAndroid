@@ -32,8 +32,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 // Defining SUN_LEN. Does not exist in Bionic LIBC
 #include <string.h>
+#ifndef SUN_LEN
 #define SUN_LEN(ptr) ((size_t) (((struct sockaddr_un *) 0)->sun_path)	\
 	+ strlen ((ptr)->sun_path))
+#endif
 
 int main(int argc, char *argv[]) {
     int sd = -1, rc, bytesReceived;
