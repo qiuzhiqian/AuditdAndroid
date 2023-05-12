@@ -35,7 +35,7 @@ include $(BUILD_EXECUTABLE)
 # Build the auditd binary
 include $(CLEAR_VARS)
 
-MY_ROOT_PATH := external/android_audit
+MY_ROOT_PATH := external/android-audit
 
 LOCAL_MODULE := auditd
 LOCAL_MODULE_TAGS := eng

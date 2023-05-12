@@ -3,10 +3,10 @@ LOCAL_PATH:= $(call my-dir)
 
 include $(CLEAR_VARS)
 
-MY_ROOT_PATH := external/android_audit
+MY_ROOT_PATH := external/android-audit
 ETC_DIR := $(TARGET_OUT)/etc/audit
 
-LOCAL_MODULE := auditctl_xml
+LOCAL_MODULE := auditctl_orig
 LOCAL_MODULE_TAGS := optional
 LOCAL_SRC_FILES:= lib/libaudit.c \
 			lib/message.c \
@@ -34,7 +34,7 @@ include $(BUILD_EXECUTABLE)
 # Build the auditd binary
 include $(CLEAR_VARS)
 
-MY_ROOT_PATH := external/android_audit
+#MY_ROOT_PATH := external/android-audit
 
 LOCAL_MODULE := auditd
 LOCAL_MODULE_TAGS := optional
